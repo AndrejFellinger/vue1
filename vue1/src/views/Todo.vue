@@ -8,7 +8,9 @@
     </ol>
 
     <input type="text" v-model="test" />
-    <p>{{ test + ' ahoj' + count }}</p>
+    <input type="submit" value="add" @click="storeTest">
+
+    <p>{{ test }}</p>
 
 
 </template>
@@ -20,7 +22,14 @@ export default {
         return {
             count: 1,
             list: ['hey', 'gey', "let's gooo", 'finally', 'made ITTTTTTT'],
-            test: 'wd'
+            test: ''
+        }
+
+    },
+
+    methods: {
+        storeTest(){
+            this.list.push(this.test)
         }
     },
 }

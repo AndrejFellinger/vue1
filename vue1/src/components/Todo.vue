@@ -1,84 +1,68 @@
-<script>
-import { VueElement } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
-
-import Todo from "./components/Todo.vue"
-
-export default{
-  components: {
-    Todo,
-  },
-}
-
-</script>
-
 <template>
 
-<div class="hdr">
-  <h1>Your Tasks</h1>
-</div>
+    <div class="container">
+        <!-- <ul> -->
+            <li v-for="(kokos, index) in list">
+            
+                {{ kokos }}
 
-<div class="container views-holder">
-  <div id="active" class="views-cont">
-    <h2>Active Tasks</h2>
+                <button class="deletebtn" @click="deleteTodo(index)">
+                    <ion-icon name="trash"></ion-icon>
+                </button>
 
-    <todo />
+            </li>
+        <!-- </ul> -->
+    <form action="" v-on:submit="submitForm">
+        <input type="text" id="input" v-model="test" placeholder="start typing..." />
+        <input class="submit" type="submit" value="ADD" name="add" @click="storeTest">
+    </form>
 
-  </div>
-  <div id="deleted" class="views-cont">
-    <h2>Deleted Tasks</h2>
-    {{ rmved }}
-  </div>
-</div>
 
-  
+    </div>
+
+        <h2 v-for="(rmved, index) in deleted">
+
+            deleted - {{ rmved }}
+
+        </h2>
+
+
+
 </template>
 
+
+<script>
+export default {
+    data() {
+        return {
+            list: [],
+            deleted: [],
+            test: '',
+            deletedlist: ''
+        }
+
+    },
+
+    methods: {
+        storeTest(){
+            this.list.push(this.test)
+
+        },
+        submitForm : function(event){
+            event.preventDefault(),
+            event.target.reset()
+        },
+        deleteTodo(index){
+            this.deleted.push(this.list.splice(index, 1)[0])
+
+            console.log( this.deleted )
+        }
+    },
+
+}
+</script>
+
 <style scoped>
-
-    .hdr{
-      background: rgb(19, 19, 19);
-      width: 100%;
-      padding: 15px;
-    }
-
-    h1{
-      text-align: center;
-      font-size: 24px;
-      /* border-bottom: 1px solid rgb(212, 212, 212); */
-    }
-
-    .container{
-        /* background: white; */
-        /* display: grid; */
-        /* grid-template-columns: auto; */
-        /* color: rgb(27, 27, 27); */
-        padding: 20px;
-        /* border-radius: 5px; */
-        justify-content: center;
-        /* align-items: center; */
-        /* box-shadow: 0 0 15px rgba(255, 255, 255, 0.24); */
-        /* max-height: 800px; */
-        overflow: scroll;
-    }
-
-    .views-holder{
-      display: grid;
-      grid-template-columns: auto auto;
-    }
-
-    .views-cont{
-      margin: 20px;
-      background: rgb(19, 19, 19);
-      border-radius: 5px;
-      padding: 15px;
-      min-width: 400px;
-      height: fit-content;
-    }
-
-    .views-cont h2{
-      border-bottom: 1px solid rgb(32, 32, 32);
-    }
 
     ul{
         font-size: 18px;
@@ -95,6 +79,7 @@ export default{
         background: rgb(240, 240, 240);
         list-style-type: none;
         border-radius: 3px;
+        color: black;
     }
 
     input{
@@ -165,4 +150,5 @@ export default{
     .hrd-link-active{
         background: rgb(228, 228, 228);
     }
+
 </style>

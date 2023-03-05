@@ -26,7 +26,14 @@
         <input class="submit" type="submit" value="ADD" name="add" @click="storeTest">
     </form>
 
+
     </div>
+
+        <h2 v-for="(rmved, index) in deleted">
+
+            {{ rmved }}
+
+        </h2>
 
 
 
@@ -34,8 +41,6 @@
 
 
 <script>
-
-
 export default {
     data() {
         return {
@@ -57,7 +62,9 @@ export default {
             event.target.reset()
         },
         deleteTodo(index){
-            this.list.splice(index, 1)
+            this.deleted.push(this.list.splice(index, 1)[0])
+
+            console.log( this.deleted )
         }
     },
 

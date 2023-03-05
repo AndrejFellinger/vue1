@@ -8,6 +8,11 @@ export default{
   components: {
     Todo,
   },
+  data() {
+    return {
+      deleteditems: Todo.data().deleted,
+    }
+  },
 }
 
 </script>
@@ -22,15 +27,14 @@ export default{
   <div id="active" class="views-cont">
     <h2>Active Tasks</h2>
 
-    <todo />
+    <Todo />
 
   </div>
   <div id="deleted" class="views-cont">
     <h2>Deleted Tasks</h2>
-    {{ rmved }}
+    <div> {{ deleteditems }} </div>
   </div>
 </div>
-
   
 </template>
 

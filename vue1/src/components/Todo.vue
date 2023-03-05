@@ -32,6 +32,8 @@
 
 
 <script>
+// export { deleted }
+
 export default {
     data() {
         return {
@@ -45,7 +47,11 @@ export default {
 
     methods: {
         storeTest(){
+            if(this.test == ''){
+                return(alert('This field cannot be Empty!'))
+            }
             this.list.push(this.test)
+            this.test = ''
 
         },
         submitForm : function(event){

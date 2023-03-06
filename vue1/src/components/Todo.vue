@@ -1,30 +1,35 @@
 <template>
 
-    <div class="container">
-        <!-- <ul> -->
-            <li v-for="(kokos, index) in list">
-            
-                {{ kokos }}
+<div id="holder">
+    <div class="views-cont" id="active">
+        <h2>Active Tasks</h2>
+        <div id="notaskmsg">{{ notaskmsg }}</div>
+        <li v-for="(kokos, index) in list">
+                
+                    {{ kokos }}
 
-                <button class="deletebtn" @click="deleteTodo(index)">
-                    <ion-icon name="trash"></ion-icon>
-                </button>
+                    <button class="deletebtn" @click="deleteTodo(index)">
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
 
-            </li>
-        <!-- </ul> -->
-    <form action="" v-on:submit="submitForm">
-        <input type="text" id="input" v-model="test" placeholder="start typing..." />
-        <input class="submit" type="submit" value="ADD" name="add" @click="storeTest">
-    </form>
+                </li>
+        <form action="" v-on:submit="submitForm">
+            <input type="text" id="input" v-model="test" placeholder="start typing..." />
+            <input class="submit" type="submit" value="ADD" name="add" @click="storeTest">
+        </form>
 
 
+        </div>
+
+        <div class="views-cont" id="deleted">
+        <h2>Deleted Tasks</h2>
+        <div id="normvmsg">{{ normvmsg }}</div>
+        <li v-for="(rmved, index) in deleted">
+            {{ rmved }}
+        </li>
     </div>
+</div>
 
-        <h2 v-for="(rmved, index) in deleted">
-
-            deleted - {{ rmved }}
-
-        </h2>
 
 
 
@@ -32,7 +37,6 @@
 
 
 <script>
-// export { deleted }
 
 export default {
     data() {
@@ -40,7 +44,9 @@ export default {
             list: [],
             deleted: [],
             test: '',
-            deletedlist: ''
+            deletedlist: '',
+            notaskmsg: 'There are no active tasks...',
+            normvmsg: 'There are no deleted tasks...',
         }
 
     },
@@ -52,6 +58,7 @@ export default {
             }
             this.list.push(this.test)
             this.test = ''
+            document.getElementById('notaskmsg').style = "display: none;"
 
         },
         submitForm : function(event){
@@ -60,8 +67,7 @@ export default {
         },
         deleteTodo(index){
             this.deleted.push(this.list.splice(index, 1)[0])
-
-            console.log( this.deleted )
+            document.getElementById('normvmsg').style = "display: none;"
         }
     },
 
@@ -69,6 +75,28 @@ export default {
 </script>
 
 <style scoped>
+
+    #holder{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+    .container1{
+        margin: 15px;
+    }
+
+    .views-cont{
+      margin: 20px;
+      background: rgb(19, 19, 19);
+      border-radius: 5px;
+      padding: 15px;
+      min-width: 400px;
+      height: fit-content;
+    }
+
+    .views-cont h2{
+      border-bottom: 1px solid rgb(32, 32, 32);
+    }
 
     ul{
         font-size: 18px;
@@ -155,6 +183,12 @@ export default {
 
     .hrd-link-active{
         background: rgb(228, 228, 228);
+    }
+
+    #deleted li{
+        background: rgb(58, 0, 0);
+        color: rgb(255, 168, 168);
+        border-bottom: 1px solid rgb(31, 0, 0);
     }
 
 </style>

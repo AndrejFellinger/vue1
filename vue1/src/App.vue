@@ -24,17 +24,11 @@ export default{
 </div>
 
 <div class="container views-holder">
-  <div id="active" class="views-cont">
-    <h2>Active Tasks</h2>
 
     <Todo />
 
   </div>
-  <div id="deleted" class="views-cont">
-    <h2>Deleted Tasks</h2>
-    <div> {{ deleteditems }} </div>
-  </div>
-</div>
+
   
 </template>
 
@@ -69,19 +63,6 @@ export default{
     .views-holder{
       display: grid;
       grid-template-columns: auto auto;
-    }
-
-    .views-cont{
-      margin: 20px;
-      background: rgb(19, 19, 19);
-      border-radius: 5px;
-      padding: 15px;
-      min-width: 400px;
-      height: fit-content;
-    }
-
-    .views-cont h2{
-      border-bottom: 1px solid rgb(32, 32, 32);
     }
 
     ul{

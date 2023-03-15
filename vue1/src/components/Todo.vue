@@ -51,14 +51,22 @@ export default {
 
     },
 
+    mounted() {
+        this.LoadData()
+    },
+
     methods: {
         storeTest(){
             if(this.test == ''){
-                return(alert('This field cannot be Empty!'))
+                return(console.log('reloaded page or empty field'))
             }
             this.list.push(this.test)
             this.test = ''
             document.getElementById('notaskmsg').style = "display: none;"
+            
+            localStorage.setItem("todos", JSON.stringify(this.list));
+            // this.list = JSON.parse(localStorage.getItem("todos"));
+            this.LoadTodo()
 
         },
         submitForm : function(event){
@@ -67,7 +75,18 @@ export default {
         },
         deleteTodo(index){
             this.deleted.push(this.list.splice(index, 1)[0])
+            this.test = ''
             document.getElementById('normvmsg').style = "display: none;"
+
+            localStorage.setItem("deleted", JSON.stringify(this.deleted));
+            // this.deleted = JSON.parse(localStorage.getItem("deleted"));
+            this.LoadDeleted()
+        },
+        LoadData(){
+            this.deleted = JSON.parse(localStorage.getItem("deleted"));
+            this.list = JSON.parse(localStorage.getItem("todos"));
+            this.storeTest()
+            this.deleteTodo()
         }
     },
 

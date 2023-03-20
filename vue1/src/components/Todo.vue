@@ -4,7 +4,7 @@
     <div class="views-cont" id="active">
         <h2>Active Tasks</h2>
         <div id="notaskmsg">{{ notaskmsg }}</div>
-        <li v-for="(kokos, index) in list">
+            <li v-for="(kokos, index) in list">
                 
                     {{ kokos }}
 
@@ -12,7 +12,7 @@
                         <ion-icon name="trash"></ion-icon>
                     </button>
 
-                </li>
+            </li>
         <form action="" v-on:submit="submitForm">
             <input type="text" id="input" v-model="test" placeholder="start typing..." />
             <input class="submit" type="submit" value="ADD" name="add" @click="storeTest">
@@ -21,12 +21,13 @@
 
         </div>
 
-        <div class="views-cont" id="deleted">
-        <h2>Deleted Tasks</h2>
-        <div id="normvmsg">{{ normvmsg }}</div>
-        <li v-for="(rmved, index) in deleted">
-            {{ rmved }}
-        </li>
+                <div class="views-cont" id="deleted">
+                <h2>Deleted Tasks</h2>
+                <div id="normvmsg">{{ normvmsg }}</div>
+                
+            <li v-for="(rmved, index) in deleted">
+                {{ rmved }}
+            </li>
     </div>
 </div>
 
@@ -37,8 +38,12 @@
 
 
 <script>
+import axios from 'axios';
+
+// window.axios = require('axios');
 
 export default {
+
     data() {
         return {
             list: [],
@@ -52,7 +57,10 @@ export default {
     },
 
     mounted() {
-        this.LoadData()
+        // this.LoadData()
+        fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((response) => response.json())
+        .then((json) => console.log(json));
     },
 
     methods: {
@@ -66,7 +74,8 @@ export default {
             
             localStorage.setItem("todos", JSON.stringify(this.list));
             // this.list = JSON.parse(localStorage.getItem("todos"));
-            this.LoadTodo()
+            // this.LoadTodo()
+
 
         },
         submitForm : function(event){
@@ -80,15 +89,19 @@ export default {
 
             localStorage.setItem("deleted", JSON.stringify(this.deleted));
             // this.deleted = JSON.parse(localStorage.getItem("deleted"));
-            this.LoadDeleted()
+            // this.LoadDeleted()
         },
         LoadData(){
             this.deleted = JSON.parse(localStorage.getItem("deleted"));
             this.list = JSON.parse(localStorage.getItem("todos"));
             this.storeTest()
             this.deleteTodo()
+            this.console.log(test, deletedlist)
         }
+        
     },
+
+    
 
 }
 </script>
